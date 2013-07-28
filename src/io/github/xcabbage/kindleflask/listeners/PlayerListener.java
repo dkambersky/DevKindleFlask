@@ -13,10 +13,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerListener implements Listener {
 	KindleFlask instance;
-	ItemInterface workshop= new ItemInterface();
+	ItemInterface workshop = new ItemInterface();
 
 	public PlayerListener(KindleFlask instance) {
 		this.instance = instance;
@@ -37,20 +38,24 @@ public class PlayerListener implements Listener {
 	}
 
 	// HANDLING RIGHTCLICKED BLOCKS
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerInteractBlock(PlayerInteractEvent event) {
 		if (event.getClickedBlock() != null)
 			if (isBlockTopOnFire(event.getClickedBlock())
 					&& event.getClickedBlock().getType() == Material.NETHERRACK
 					&& event.getMaterial() == Material.GLASS_BOTTLE) {
-				instance.log("sup.");
-				workshop.createFlask(1, event.getItem());
+				
+				ItemStack kindled = workshop.createFlask(1);
+
+				event.getPlayer()
+						.getInventory()
+						.removeItem(
+								new ItemStack[] { new ItemStack(event
+										.getMaterial(), 1) });
+				event.getPlayer().getInventory().addItem(kindled);
+				event.getPlayer().updateInventory();
 			}
-		
-		
-		
-		
-		
 
 		// debug info
 		if (instance.debugInfoEnabled) {
