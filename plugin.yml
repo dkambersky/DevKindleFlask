@@ -2,4 +2,9 @@ name: KindleFlask
 main: io.github.xcabbage.kindleflask.KindleFlask
 version: 0.1a
 description: >
-           KindleFlask - heal yourself with fire
+           KindleFlask - heal yourself from campfires
+
+commands:
+    flask:
+        description: A quick command to set the new heal value of a lv1 flask.
+        usage: /<command> <new-value>

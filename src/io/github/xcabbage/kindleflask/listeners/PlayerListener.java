@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
 			if (isBlockTopOnFire(event.getClickedBlock())
 					&& event.getClickedBlock().getType() == Material.NETHERRACK
 					&& event.getMaterial() == Material.GLASS_BOTTLE) {
-				
+
 				ItemStack kindled = workshop.createFlask(1);
 
 				event.getPlayer()
